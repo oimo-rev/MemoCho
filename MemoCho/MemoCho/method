@@ -1,0 +1,51 @@
+Push (NavigationController)
+遷移	[self.navigationController pushViewController:]
+戻る	[self.navigationController popViewControllerAnimated:]
+ルート画面に戻る	[self.navigationController popToRootViewControllerAnimated:]
+任意画面に戻る	[self.navigationController popToViewController:]
+遷移履歴画面リスト取得	self.navigationController.viewControllers
+親画面からの遷移判定	viewWillAppear で self.isMovingToParentViewController
+親画面に戻る判定	viewWillDisappear で self.isMovingFromParentViewController
+子画面からの戻り判定	–
+子画面に遷移判定	一例) viewWillDisappear で viewControllers の後ろから2番目 == self
+UINavigationControllerによる「戻る」「進む」を検出する
+
+Modal
+遷移	[self presentViewController:]	iOS5-
+戻る	[self dismissViewControllerAnimated:]	iOS5-
+遷移先(子)画面取得	self.presentedViewController
+遷移元(親)画面取得	self.presentingViewController
+親画面からの遷移判定	viewWillAppear で self.isBeingPresented
+親画面に戻る判定	viewWillDisappear で self.isBeingDismissed
+子画面からの戻り判定	一例) viewWillAppear で self.presentedViewController != nil
+子画面に遷移判定	一例) viewWillDisappear で self.presentedViewController != nil
+遷移直後に子画面遷移	viewDidLoadで別画面に遷移できない。viewWillAppearで遷移させるしかない？
+
+Segue
+遷移	[self performSegueWithIdentifier:]
+遷移先(子)画面取得	segue.destinationViewController
+遷移元(親)画面取得	segue.sourceViewController
+遷移通知メソッド	-(void)prepareForSegue:
+Storyboard での画面遷移前はprepareForSegue メソッドが呼ばれる
+遷移判定メソッド
+(遷移キャンセル)	-(BOOL)shouldPerformSegueWithIdentifier:
+UIStoryBoardSegue をハンドルする方法
+セグエ取得	–
+
+Storyboard
+画面取得	[self.storyboard instantiateViewControllerWithIdentifier:]
+先頭画面取得	[self.storyboard instantiateInitialViewController]
+ストーリーボード取得	[UIStoryboard storyboardWithName:]
+起動時のストーリーボード変更	TARGETSのSummaryで設定
+アプリ起動時にロードするStoryboardを変更する
+
+
+Xib
+画面取得	[[UIViewController alloc] initWithNibName:]
+
+TabBar
+タブ切替	self.tabBarController.selectedIndex
+タブ画面リスト取得	self.tabBarController.viewControllers
+タブ切替+Pushルート画面に戻る	selectedViewController と popToRootViewControllerAnimated の合わせ技
+プログラム側からUITabBarControllerを切り替えて、さらに画面遷移させたい時
+タブ切替+Push遷移	(別タブにPush遷移は普通ではできない？)

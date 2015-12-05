@@ -1,0 +1,71 @@
+//////////////
+not available in automatic reference counting mode.
+//////////////
+
+自動参照カウントモードでは使用できません。
+[対策]
+"Build Phases" > "Compile Sources" で対象のソースファイルに以下のCompiler Flagsを追加する
+
+"-fno-objc-arc"
+
+[参考URL]
+http://neo-shocker.com/code/2013/02/xcode-fno-objc-arc.html
+
+
+
+//////////////
+@synthesize of 'weak' property is only allowed in ARC or GC mode
+//////////////
+
+@property (nonatomic, weak) id delegate;
+の "weak" はARC環境でしか使えないらしい。
+ARCでない場合は、"unsafe_unretained" にすればいいみたい。
+
+
+//////////////
+ARC forbids explicit message send of 'release'
+//////////////
+
+releaseやautoreleaseが不要な様です。
+《対処》
+Xcode > Build Stting > Apple LLVM7.0 - Language Objective-Cで
+Objective-C Automatic Reference Counting を　YES　から　NO　に変更
+
+
+//////////////
+deprecated...
+//////////////
+
+定義が非推奨である。
+・非推奨の定例分
+http://iphone-dev.g.hatena.ne.jp/sohei/20140111/p1
+
+[例]
+◼︎UIBarButtonItemStyle...
+Bordered -> Plain
+
+
+//////////////
+UIView tableView:numberOfRowsInSection:]: unrecognized selector sent to instance
+//////////////
+
+認識されていないセレクタがインスタンスに送信
+main.storyboardでdataSourceとdelegateの接続先をViewにしてしまうと発生するエラー。
+接続先はView Controllerにするのが正しい。
+
+画面デザインのところじゃなくて、リスト表示になっているところの上の方にあるView Controllerに対してドラッグ＆ドロップで接続する。
+http://pandazx.hatenablog.com/entry/2014/11/13/013339
+
+
+//////////////
+use of undeclared identifier 'text'
+//////////////
+宣言されていない識別子を使用する「テキスト」
+
+
+
+
+
+
+
+

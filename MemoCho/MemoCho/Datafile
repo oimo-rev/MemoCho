@@ -1,0 +1,130 @@
+//////////////////////////////
+ボタンアクション
+//////////////////////////////
+//進む
+- (IBAction) buttonTapEvent {
+NSLog(@"ボタンがタップされました");
+NextViewController *next = [[NextViewController alloc] initWithNibName:
+@"NextViewController" bundle:nil];
+//presentViewはanimateの指定
+[self presentViewController:next animated:YES completion:nil];
+}
+//戻る
+- (IBAction) tapBackBtn {
+NSLog(@"ボタンがタップされましたnext");
+[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+//////////////////////////////
+switch文
+//////////////////////////////
+switch (式) {
+　　　　case 値１:
+　　　　　　　　処理;
+　　　　　　　　break;　//switch文を抜けるための記述
+　　　　case 値２:
+　　　　　　　　処理１;
+　　　　　　　　処理２;
+　　　　　　　　break;　//switch文を抜けるための記述
+　　　　case 値３:
+　　　　case 値４:　//同じ処理を行わせたい場合はまとめられます
+　　　　　　　　処理１;
+　　　　　　　　処理２;
+　　　　　　　　break;　//switch文を抜けるための記述
+　　　　default:
+　　　　　　　　いずれの値でもない時の処理;
+}
+
+//////////////////////////////
+if文
+//////////////////////////////
+■if文の書き方その１
+if (条件式) 処理;
+
+■if文の書き方その２
+if (条件式) {
+　　　　処理１;
+　　　　処理２;
+}
+
+■if～else文の書き方
+if (条件式) {
+　　　　処理１;
+　　　　処理２;
+} else {
+　　　　処理１;
+　　　　処理２;
+}
+
+■if～else if文の書き方
+if (条件式１) {
+　　　　処理１;
+　　　　処理２;
+} else if (条件式２) {
+　　　　処理１;
+　　　　処理２;
+} else {
+　　　　処理１;
+　　　　処理２;
+}
+
+◼︎条件式
+a > b	aがbより大きい
+a >= b	aがb以上
+a < b	aがbより小さい
+a <= b	aがb以下
+a == b	aとbが等しい
+a != b	aがbが等しくないa && b	aでありかつbである
+a || b	aかまたはb
+
+◼︎例
+NSInteger n = 5;
+
+//0より大きく、かつ6未満のとき
+if(n > 0 && n < 6){
+NSLog(@"OK"); //実行される
+}
+
+//0より大きく、かつ5未満のとき
+if(n > 0 && n < 5){
+NSLog(@"OK"); //実行されない
+}
+
+//nが0未満か、または5以上のとき
+if(n < 0 || n >= 5){
+NSLog(@"OK"); //実行される
+}
+
+
+//////////////////////////////
+Block構文
+//////////////////////////////
+◼︎ラベルに変数を出力して表示させる
+- (void)viewDidLoad {
+[super viewDidLoad];
+[self calc:^(int x,int y){
+//宣言
+UILabel *label = [[UILabel alloc] init];
+//編集
+self.label.text = [NSString stringWithFormat:@"%d×%dは%dだにゃ♡",x,y,x*y];
+self.label.textColor = [UIColor greenColor];
+self.label.backgroundColor = [UIColor grayColor];
+self.label.font = [UIFont fontWithName:@"AppleGothic" size:35];
+self.label.hidden = NO;
+[self.view addSubview:label];
+NSLog(@"*** %d*%dは%dです ***",x,y,x*y);//結果は50
+}];
+}
+
+-(void)calc:(void (^)(int x,int y))calc{
+int x =10;
+int y =5;
+calc(x,y);
+}
+
+◼︎基本宣言
+typedef returnType (^TypeName)(parameterTypes);
+
+　returnType：戻り値の型
+　TypeName：定義する型の名前
+　parameterTypes：引数リスト
